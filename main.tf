@@ -70,7 +70,6 @@ resource "aws_s3_bucket" "private" {
   acl           = "private"
   policy        = data.aws_iam_policy_document.policy.json
   force_destroy = var.enable_bucket_force_destroy
-  region        = var.region
 
   tags = merge(var.tags, tomap({
     Name         = var.bucket_name,
