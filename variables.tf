@@ -113,11 +113,6 @@ variable "noncurrent_version_transitions" {
   ]
 }
 
-variable "region" {
-  description = "The region in which the bucket reside."
-  default     = "us-east-1"
-}
-
 variable "sse_algorithm" {
   description = "The server-side encryption algorithm to use. Valid values are AES256 and aws:kms"
   type        = string

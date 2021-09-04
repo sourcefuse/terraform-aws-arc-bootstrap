@@ -54,7 +54,6 @@ module "bootstrap" {
 | <a name="input_logging_bucket_target_prefix"></a> [logging\_bucket\_target\_prefix](#input\_logging\_bucket\_target\_prefix) | To specify a key prefix for log objects. | `string` | `""` | no |
 | <a name="input_noncurrent_version_expiration"></a> [noncurrent\_version\_expiration](#input\_noncurrent\_version\_expiration) | Number of days until non-current version of object expires | `number` | `365` | no |
 | <a name="input_noncurrent_version_transitions"></a> [noncurrent\_version\_transitions](#input\_noncurrent\_version\_transitions) | Non-current version transition blocks | `list(any)` | <pre>[<br>  {<br>    "days": 30,<br>    "storage_class": "STANDARD_IA"<br>  }<br>]</pre> | no |
-| <a name="input_region"></a> [region](#input\_region) | The region in which the bucket reside. | `string` | `"us-east-1"` | no |
 | <a name="input_schedule_frequency"></a> [schedule\_frequency](#input\_schedule\_frequency) | The S3 bucket inventory frequency. Defaults to Weekly. Options are 'Weekly' or 'Daily'. | `string` | `"Weekly"` | no |
 | <a name="input_sse_algorithm"></a> [sse\_algorithm](#input\_sse\_algorithm) | The server-side encryption algorithm to use. Valid values are AES256 and aws:kms | `string` | `"AES256"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the bucket. | `map(string)` | <pre>{<br>  "Module": "tf-bootstrap",<br>  "Owner": "",<br>  "TerraformManaged": "true"<br>}</pre> | no |
