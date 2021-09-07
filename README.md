@@ -4,7 +4,7 @@ This module creates and configures a S3 bucket backend and DynamoDB lock table f
 ## Getting Started  
 ```hcl
 module "bootstrap" {
-  source = "git::https://github.com/tsaucier-sf/terraform-module-aws-bootstrap"
+  source = "git::https://github.com/sourcefuse/terraform-module-aws-bootstrap"
   
   bucket_name   = "thisisasamplebucket"
   dynamodb_name = "terraform-lock"
@@ -56,7 +56,7 @@ module "bootstrap" {
 | <a name="input_noncurrent_version_transitions"></a> [noncurrent\_version\_transitions](#input\_noncurrent\_version\_transitions) | Non-current version transition blocks | `list(any)` | <pre>[<br>  {<br>    "days": 30,<br>    "storage_class": "STANDARD_IA"<br>  }<br>]</pre> | no |
 | <a name="input_schedule_frequency"></a> [schedule\_frequency](#input\_schedule\_frequency) | The S3 bucket inventory frequency. Defaults to Weekly. Options are 'Weekly' or 'Daily'. | `string` | `"Weekly"` | no |
 | <a name="input_sse_algorithm"></a> [sse\_algorithm](#input\_sse\_algorithm) | The server-side encryption algorithm to use. Valid values are AES256 and aws:kms | `string` | `"AES256"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the bucket. | `map(string)` | <pre>{<br>  "Module": "tf-bootstrap",<br>  "Owner": "",<br>  "TerraformManaged": "true"<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the bucket. | `map(string)` | <pre>{<br>  "Module": "terraform-module-aws-bootstrap",<br>  "TerraformManaged": "true"<br>}</pre> | no |
 | <a name="input_transitions"></a> [transitions](#input\_transitions) | Current version transition blocks | `list(any)` | `[]` | no |
 
 ## Outputs
@@ -68,7 +68,6 @@ module "bootstrap" {
 | <a name="output_dynamodb_arn"></a> [dynamodb\_arn](#output\_dynamodb\_arn) | n/a |
 | <a name="output_dynamodb_name"></a> [dynamodb\_name](#output\_dynamodb\_name) | n/a |
 
----
 # Bootstrapping  
 
 ## Initial Setup
@@ -112,8 +111,6 @@ Do you want to migrate all workspaces to "aws"?
 ```
 
 Our local state has now been migrated to the new backend. It is now safe to remove the local `terraform.tfstate`.
-
-# Pipelines  
 
 ## Versioning  
 :warning: This section is still under construction. :warning:  

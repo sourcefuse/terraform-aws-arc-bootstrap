@@ -158,8 +158,7 @@ variable "tags" {
   type        = map(string)
 
   default = {
-    Module           = "tf-bootstrap"
+    Module           = "terraform-module-aws-bootstrap"
     TerraformManaged = "true"
-    Owner            = ""
   }
 }
