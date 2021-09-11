@@ -71,6 +71,8 @@ resource "aws_s3_bucket" "private" {
   policy        = data.aws_iam_policy_document.policy.json
   force_destroy = var.enable_bucket_force_destroy
 
+  acceleration_status = var.acceleration_status
+
   tags = merge(var.tags, tomap({
     Name         = var.bucket_name,
     LastModified = local.datetime
