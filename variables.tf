@@ -26,11 +26,6 @@ variable "abort_incomplete_multipart_upload_days" {
   default     = 14
 }
 
-variable "acceleration_status" {
-  description = "Sets the accelerate configuration of an existing bucket. Can be Enabled or Suspended."
-  default     = "Suspended"
-}
-
 variable "bucket_key_enabled" {
   description = "Whether or not to use Amazon S3 Bucket Keys for SSE-KMS."
   type        = bool
