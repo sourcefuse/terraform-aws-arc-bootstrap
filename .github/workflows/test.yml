@@ -1,0 +1,51 @@
+---
+name: Test
+
+on:
+  push:
+    branches:
+      - '**'     # matches every branch
+      - '!main'  # excludes main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  tflint:
+    runs-on: my-custom-runner
+    name: tflint
+    steps:
+      - uses: actions/checkout@master
+
+      - uses: terraform-linters/setup-tflint@v1
+        with:
+          tflint_version: latest
+
+      - name: Show version
+        run: tflint --version
+
+      - name: Init tflint
+        run: tflint --init
+
+      - name: Run tflint
+        run: tflint -f compact
+
+  checkov:
+    runs-on: my-custom-runner
+    name: checkov
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          quiet: true # optional: display only failed checks
+          soft_fail: false # optional: do not return an error code if there are failed checks.
+          framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+          output_format: json # optional: the output format, one of: cli, json, junitxml, github_failed_only
+          download_external_modules: true
+          log_level: WARNING
+          container_user: 1000 # optional: Define what UID and / or what GID to run the container under to prevent permission issues
