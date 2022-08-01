@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terraform-module-aws-bootstrap
+  description: This module creates and configures a S3 bucket backend and DynamoDB lock table for terraform state files.
+  annotations:
+    github.com/project-slug: https://github.com/sourcefuse/terraform-module-aws-bootstrap
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  owner: sourcefuse
+  lifecycle: development
