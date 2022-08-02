@@ -85,7 +85,6 @@ resource "aws_s3_bucket" "private" {
 
   tags = merge(var.tags, tomap({
     Name         = var.bucket_name,
-    LastModified = local.datetime
   }))
 
   versioning {
@@ -276,6 +275,5 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 
   tags = merge(var.tags, tomap({
     Name         = var.dynamodb_name,
-    LastModified = local.datetime
   }))
 }

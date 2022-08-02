@@ -6,7 +6,10 @@ on: pull_request_review
 
 jobs:
   labelWhenApproved:
-    runs-on: ubuntu-latest
+    runs-on:
+      - dev
+      - self-hosted
+      - refarch
     steps:
       - name: Label when approved
         uses: pullreminders/label-when-approved-action@master
