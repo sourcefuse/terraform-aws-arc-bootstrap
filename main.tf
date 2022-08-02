@@ -84,7 +84,7 @@ resource "aws_s3_bucket" "private" {
   force_destroy = var.enable_bucket_force_destroy
 
   tags = merge(var.tags, tomap({
-    Name         = var.bucket_name,
+    Name = var.bucket_name,
   }))
 
   versioning {
@@ -274,6 +274,6 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   }
 
   tags = merge(var.tags, tomap({
-    Name         = var.dynamodb_name,
+    Name = var.dynamodb_name,
   }))
 }
