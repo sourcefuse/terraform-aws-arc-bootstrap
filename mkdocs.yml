@@ -1,0 +1,4 @@
+site_name: terraform-module-aws-bootstrap
+site_description: This module creates and configures a S3 bucket backend and DynamoDB lock table for terraform state files.
+plugins:
+  - techdocs-core
