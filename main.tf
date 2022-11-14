@@ -88,8 +88,10 @@ resource "aws_s3_bucket" "private" {
     Name = var.bucket_name,
   }))
 
+  logging {}
   versioning {
     enabled = var.enable_versioning
+    mfa_delete = true
   }
 
   lifecycle_rule {
@@ -263,6 +265,7 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
 
   server_side_encryption {
     enabled = true
+    kms_key_arn = data.aws_iam_policy_document.policy.arn
   }
 
   attribute {
@@ -271,7 +274,7 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   }
 
   point_in_time_recovery {
-    enabled = var.enable_dynamodb_point_in_time_recovery
+    enabled = true
   }
 
   tags = merge(var.tags, tomap({
