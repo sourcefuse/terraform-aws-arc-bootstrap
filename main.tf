@@ -274,7 +274,7 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   }
 
   point_in_time_recovery {
-    enabled = true
+    enabled = var.enable_dynamodb_point_in_time_recovery
   }
 
   tags = merge(var.tags, tomap({

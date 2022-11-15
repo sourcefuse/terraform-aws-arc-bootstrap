@@ -6,11 +6,11 @@ variable "dynamodb_name" {
   description = "The name of the table, this needs to be unique within a region."
 }
 
-# variable "enable_dynamodb_point_in_time_recovery" {
-#   description = "Whether to enable point-in-time recovery - note that it can take up to 10 minutes to enable for new tables."
-#   type        = bool
-#   default     = false
-# }
+variable "enable_dynamodb_point_in_time_recovery" {
+  description = "Whether to enable point-in-time recovery - note that it can take up to 10 minutes to enable for new tables."
+  type        = bool
+  default     = true
+}
 
 variable "dynamodb_hash_key" {
   type = string
