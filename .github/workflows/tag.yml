@@ -10,9 +10,7 @@ on:
 jobs:
   ## tag
   tag:
-    runs-on: 
-      - self-hosted
-      - refarch
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
