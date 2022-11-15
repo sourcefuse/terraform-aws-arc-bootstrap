@@ -2,7 +2,7 @@
 ## dynamodb
 ################################################
 variable "dynamodb_name" {
-  type = string
+  type        = string
   description = "The name of the table, this needs to be unique within a region."
 }
 
@@ -13,9 +13,15 @@ variable "enable_dynamodb_point_in_time_recovery" {
 }
 
 variable "dynamodb_hash_key" {
-  type = string
+  type        = string
   description = "The attribute to use as the hash (partition) key."
   default     = "LockID"
+}
+
+variable "dynamo_kms_master_key_id" {
+  type        = string
+  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK"
+  default     = null
 }
 
 ################################################
@@ -35,7 +41,7 @@ variable "bucket_key_enabled" {
 }
 
 variable "bucket_name" {
-  type = string
+  type        = string
   description = "The name of the bucket."
 }
 
@@ -63,6 +69,12 @@ variable "enable_versioning" {
   default     = true
 }
 
+variable "mfa_delete" {
+  description = "mfa_delete is disabled"
+  type        = bool
+  default     = false
+}
+
 variable "expiration" {
   description = "Specifies a period in the object's expire."
   type        = list(any)
@@ -88,13 +100,13 @@ variable "kms_master_key_id" {
 }
 
 variable "logging_bucket_name" {
-  type = string
+  type        = string
   description = "The S3 bucket to send S3 access logs."
   default     = ""
 }
 
 variable "logging_bucket_target_prefix" {
-  type = string
+  type        = string
   description = "To specify a key prefix for log objects."
   default     = ""
 }

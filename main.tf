@@ -2,7 +2,7 @@
 ## defaults
 ################################################
 terraform {
-   required_version = ">= 1.0.8"
+  required_version = ">= 1.0.8"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -90,8 +90,8 @@ resource "aws_s3_bucket" "private" {
 
   logging {}
   versioning {
-    enabled = var.enable_versioning
-    mfa_delete = true
+    enabled    = var.enable_versioning
+    mfa_delete = var.mfa_delete
   }
 
   lifecycle_rule {
@@ -264,8 +264,8 @@ resource "aws_dynamodb_table" "terraform_state_lock" {
   write_capacity = 2
 
   server_side_encryption {
-    enabled = true
-    kms_key_arn = data.aws_iam_policy_document.policy.arn
+    enabled     = true
+    kms_key_arn = local.dynamo_kms_master_key_id
   }
 
   attribute {
