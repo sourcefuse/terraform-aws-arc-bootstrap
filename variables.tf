@@ -20,7 +20,7 @@ variable "dynamodb_hash_key" {
 
 variable "dynamo_kms_master_key_id" {
   type        = string
-  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK"
+  description = "The Default ID of an AWS-managed customer master key (CMK) for Amazon Dynamo"
   default     = null
 }
 
