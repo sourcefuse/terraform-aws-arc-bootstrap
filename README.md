@@ -1,5 +1,5 @@
 
-[![Known Vulnerabilities](https://github.com/sourcefuse/terraform-module-aws-bootstrap/actions/workflows/snyk.yaml/badge.svg)](https://github.com/sourcefuse/terraform-module-aws-bootstrap/actions/workflows/snyk.yaml)
+[![Known Vulnerabilities](https://snyk.io/test/github/sourcefuse/terraform-module-aws-bootstrap/badge.svg)](https://snyk.io/test/github/sourcefuse/terraform-module-aws-bootstrap)
 
 # Terraform Module: Bootstrap
 This module creates and configures a S3 bucket backend and DynamoDB lock table for terraform state files.  
