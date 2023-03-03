@@ -1,11 +1,10 @@
 ---
 name: Tag
 
-on:
+on:              # yamllint disable-line rule:truthy
   push:
     branches:
       - main
-
 
 jobs:
   ## tag

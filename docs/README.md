@@ -5,7 +5,7 @@ This module creates and configures a S3 bucket backend and DynamoDB lock table f
 ```hcl
 module "bootstrap" {
   source = "git::https://github.com/sourcefuse/terraform-module-aws-bootstrap"
-  
+
   bucket_name   = "thisisasamplebucket"
   dynamodb_name = "terraform-lock"
 }
@@ -94,7 +94,7 @@ After the initial apply of terraform, you can uncomment this section and save th
 ```hcl
 terraform {
   required_version = "~> 1.0.3"
-  
+
   backend "s3" {
     region         = "us-east-1"
     key            = "terraform-bootstrap/terraform.tfstate"
@@ -129,7 +129,7 @@ Our local state has now been migrated to the new backend. It is now safe to remo
 ## Development
 
 ### Versioning  
-Versioning is done manually at the moment and a tracking [issue](https://github.com/sourcefuse/terraform-module-aws-bootstrap/issues/1) has been created to automate the git tag task.   
+Versioning is done manually at the moment and a tracking [issue](https://github.com/sourcefuse/terraform-module-aws-bootstrap/issues/1) has been created to automate the git tag task.  
 On commits to `master`, you are required to update the `version.json` at the root of this project to the next semantic version.  
 
 ### Prerequisites
