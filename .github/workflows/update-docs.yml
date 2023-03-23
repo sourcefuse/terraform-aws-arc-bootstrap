@@ -14,7 +14,7 @@ jobs:
       - name: Pushes Readme file
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+          API_TOKEN_GITHUB: ${{ secrets.ARC_DOCS_TOKEN }}
         with:
           source_file: 'README.md'
           destination_repo: 'sourcefuse/arc-docs'
