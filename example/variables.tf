@@ -16,3 +16,9 @@ variable "environment" {
   type        = string
   default     = "dev"
 }
+
+variable "dynamo_kms_master_key_id" {
+  type        = string
+  description = "The Default ID of an AWS-managed customer master key (CMK) for Amazon Dynamo"
+  default     = null
+}
