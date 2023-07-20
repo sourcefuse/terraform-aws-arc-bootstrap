@@ -88,9 +88,6 @@ resource "aws_s3_bucket" "private" {
     Name = var.bucket_name,
   }))
 
-  logging {
-    target_bucket = var.logging_bucket_name
-  }
   versioning {
     enabled    = var.enable_versioning
     mfa_delete = var.mfa_delete
