@@ -2,7 +2,7 @@
 ## defaults
 ################################################
 terraform {
-  required_version = ">= 1.0.8"
+  required_version = "~> 1.4"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -23,8 +23,8 @@ provider "aws" {
 # data "aws_caller_identity" "current" {} // uncomment this when using this module anywhere
 
 module "tags" {
-  source = "git::https://github.com/sourcefuse/terraform-aws-refarch-tags?ref=1.1.1"
-
+  source      = "sourcefuse/arc-tags/aws"
+  version     = "1.2.2"
   environment = var.environment
   project     = "arc"
 
@@ -36,8 +36,8 @@ module "tags" {
 }
 
 module "bootstrap" {
-  source = "../"
-
+  source                   = "sourcefuse/arc-bootstrap/aws"
+  version                  = "1.0.9"
   bucket_name              = var.bucket_name
   dynamodb_name            = var.dynamodb_name
   dynamo_kms_master_key_id = var.dynamo_kms_master_key_id
