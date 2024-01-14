@@ -6,8 +6,16 @@ metadata:
   namespace: arc
   description: This module creates and configures a S3 bucket backend and DynamoDB lock table for terraform state files.
   annotations:
+    snyk.io/org-id: 04111b7b-2ba8-404b-8a16-42a04448794d
     github.com/project-slug: sourcefuse/terraform-module-aws-bootstrap
     backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://sourcefuse.github.io/arc-docs/arc-iac-docs/
+      title: ARC Docs
+      icon: dashboard
+    - url: https://sourcefuse.github.io/arc-docs/arc-iac-docs/modules/terraform-module-aws-bootstrap/
+      title: ARC Bootstrap Docs
+      icon: dashboard
 spec:
   type: service
   owner: sourcefuse
