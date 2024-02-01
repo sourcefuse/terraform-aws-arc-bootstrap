@@ -4,18 +4,75 @@
 
 [![Known Vulnerabilities](https://github.com/sourcefuse/terraform-module-aws-bootstrap/actions/workflows/snyk.yaml/badge.svg)](https://github.com/sourcefuse/terraform-module-aws-bootstrap/actions/workflows/snyk.yaml)
 
-This module creates and configures a S3 bucket backend and DynamoDB lock table for terraform state files.  
+## Introduction
+---
+A backend specifies the location where Terraform stores its state data files. Terraform relies on persistent state data to monitor the resources under its management. This enables collaborative access to the state data, allowing multiple individuals to collaborate on the management of a set of infrastructure resources.
+This module creates and configures a S3 bucket backend along with a DynamoDB lock table to store Terraform state files.
+As a best practice use this module to create the backend for Terraform<br><br><br>
 
-## Getting Started  
+
+![image search api](images/terraform-state.png)<br><br><br>
+
+## Steps for utilizing the Terraform module
+
+1. **Define the Module**
+
+Initially, it's essential to define a Terraform module, which is organized as a distinct directory encompassing Terraform configuration files. Within this module directory, input variables and output values must be defined in the variables.tf and outputs.tf files, respectively. The following illustrates an example directory structure:
+
+
+
+```plaintext
+bootstrap/
+|-- main.tf
+|-- variables.tf
+|-- outputs.tf
+```
+
+
+2. **Define Input Variables**
+
+Inside the `variables.tf` or in `*.tfvars` file, you should define values for the variables that the module requires.
+
+3. **Use the Module in Your Main Configuration**
+In your main Terraform configuration file (e.g., main.tf), you can use the module. Specify the source of the module, and version, For Example
+
+
 ```hcl
 module "bootstrap" {
   source  = "sourcefuse/arc-bootstrap/aws"
-  version = "1.0.9"
+  version = "1.1.3"
   bucket_name              = var.bucket_name
   dynamodb_name            = var.dynamodb_name
-  dynamo_kms_master_key_id = var.dynamo_kms_master_key_id
 }
 ```
+
+4. **Output Values**
+
+Inside the `outputs.tf` file of the module, you can define output values that can be referenced in the main configuration. For example:
+
+```hcl
+output "bucket_id" {
+  value = module.bootstrap.bucket_id
+}
+
+output "bucket_name" {
+  value = module.bootstrap.bucket_name
+}
+```
+
+5. **Execute Terraform Commands**
+
+After defining your main configuration, navigate to the directory containing your Terraform files and run the following commands:
+
+
+```bash
+terraform init
+terraform apply
+```
+
+6. **Review and Confirm**
+
+Terraform will display a plan showing the changes it intends to make. Review the plan and confirm by typing 'yes' when prompted.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -41,9 +98,16 @@ No modules.
 |------|------|
 | [aws_dynamodb_table.terraform_state_lock](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_s3_bucket.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_acl.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
 | [aws_s3_bucket_analytics_configuration.private_analytics_config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_analytics_configuration) | resource |
+| [aws_s3_bucket_cors_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_cors_configuration) | resource |
 | [aws_s3_bucket_inventory.inventory](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_inventory) | resource |
+| [aws_s3_bucket_lifecycle_configuration.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
+| [aws_s3_bucket_logging.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_logging) | resource |
+| [aws_s3_bucket_ownership_controls.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls) | resource |
 | [aws_s3_bucket_public_access_block.public_access_block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
