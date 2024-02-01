@@ -13,6 +13,15 @@ As a best practice use this module to create the backend for Terraform<br><br><b
 
 ![image search api](images/terraform-state.png)<br><br><br>
 
+
+### Prerequisites
+Before using this module, ensure you have the following:
+
+- AWS credentials configured.
+- Terraform installed.
+- A working knowledge of Terraform.
+
+
 ## Steps for utilizing the Terraform module
 
 1. **Define the Module**
