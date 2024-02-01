@@ -195,12 +195,12 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_bucket_arn"></a> [bucket\_arn](#output\_bucket\_arn) | n/a |
-| <a name="output_bucket_id"></a> [bucket\_id](#output\_bucket\_id) | n/a |
-| <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | n/a |
-| <a name="output_dynamodb_arn"></a> [dynamodb\_arn](#output\_dynamodb\_arn) | n/a |
-| <a name="output_dynamodb_id"></a> [dynamodb\_id](#output\_dynamodb\_id) | n/a |
-| <a name="output_dynamodb_name"></a> [dynamodb\_name](#output\_dynamodb\_name) | n/a |
+| <a name="output_bucket_arn"></a> [bucket\_arn](#output\_bucket\_arn) | Bucket's ARN |
+| <a name="output_bucket_id"></a> [bucket\_id](#output\_bucket\_id) | Bucket's ID |
+| <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | Bucket's Name |
+| <a name="output_dynamodb_arn"></a> [dynamodb\_arn](#output\_dynamodb\_arn) | DynamoDB's ARN |
+| <a name="output_dynamodb_id"></a> [dynamodb\_id](#output\_dynamodb\_id) | DynamoDB's ID |
+| <a name="output_dynamodb_name"></a> [dynamodb\_name](#output\_dynamodb\_name) | DynamoDB's Name |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Development
