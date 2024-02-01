@@ -30,7 +30,7 @@ module "tags" {
 
 module "bootstrap" {
   source                   = "sourcefuse/arc-bootstrap/aws"
-  version                  = "1.1.2"
+  version                  = "1.1.3"
   bucket_name              = var.bucket_name
   dynamodb_name            = var.dynamodb_name
   dynamo_kms_master_key_id = var.dynamo_kms_master_key_id
