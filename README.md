@@ -74,6 +74,45 @@ terraform apply
 
 Terraform will display a plan showing the changes it intends to make. Review the plan and confirm by typing 'yes' when prompted.
 
+
+7. Migrating local state to backend
+
+After the initial apply of terraform, you can add backend section to migrate Terraforn state to S3 bucket
+```hcl
+terraform {
+  required_version = "~> 1.4"
+
+  backend "s3" {
+    region         = "us-east-1"
+    key            = "terraform-bootstrap/terraform.tfstate"
+    bucket         = "terraformbucketexample"
+    dynamodb_table = "terraform-lock"
+    encrypt        = true
+  }
+}
+```
+
+Then run `terraform init` to initialize the new backend:  
+```
+Initializing modules...
+
+Initializing the backend...
+Do you want to migrate all workspaces to "aws"?
+  Both the existing "local" backend and the newly configured "aws" backend
+  support workspaces. When migrating between backends, Terraform will copy
+  all workspaces (with the same names). THIS WILL OVERWRITE any conflicting
+  states in the destination.
+
+  Terraform initialization doesn't currently migrate only select workspaces.
+  If you want to migrate a select number of workspaces, you must manually
+  pull and push those states.
+
+  If you answer "yes", Terraform will migrate all states. If you answer
+  "no", Terraform will abort.
+```
+
+Our local state has now been migrated to the new backend. It is now safe to remove the local `terraform.tfstate`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
@@ -154,50 +193,6 @@ No modules.
 | <a name="output_dynamodb_id"></a> [dynamodb\_id](#output\_dynamodb\_id) | n/a |
 | <a name="output_dynamodb_name"></a> [dynamodb\_name](#output\_dynamodb\_name) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-# Bootstrapping  
-
-## Initial Setup
-On initial run, this project will create a local terraform state file. **DO NOT** delete this file. Once our backend and lock table are created, we will migrate the state to the new backend.  
-
-## Migrating local state to backend
-:warning: This can only be done once without affecting all workspaces. :warning:  
-
-After the initial apply of terraform, you can uncomment this section and save the state to the backend.  
-```hcl
-terraform {
-  required_version = "~> 1.0.3"
-
-  backend "s3" {
-    region         = "us-east-1"
-    key            = "terraform-bootstrap/terraform.tfstate"
-    bucket         = "terraformbucketexample"
-    dynamodb_table = "terraform-lock"
-    encrypt        = true
-  }
-}
-```
-
-Then run `terraform init` to initialize the new backend:  
-```
-Initializing modules...
-
-Initializing the backend...
-Do you want to migrate all workspaces to "aws"?
-  Both the existing "local" backend and the newly configured "aws" backend
-  support workspaces. When migrating between backends, Terraform will copy
-  all workspaces (with the same names). THIS WILL OVERWRITE any conflicting
-  states in the destination.
-
-  Terraform initialization doesn't currently migrate only select workspaces.
-  If you want to migrate a select number of workspaces, you must manually
-  pull and push those states.
-
-  If you answer "yes", Terraform will migrate all states. If you answer
-  "no", Terraform will abort.
-```
-
-Our local state has now been migrated to the new backend. It is now safe to remove the local `terraform.tfstate`.
 
 ## Development
 
