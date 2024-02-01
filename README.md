@@ -22,7 +22,7 @@ Before using this module, ensure you have the following:
 - A working knowledge of Terraform.
 
 
-## Steps for utilizing the Terraform module
+## Getting Started
 
 1. **Define the Module**
 
@@ -84,7 +84,7 @@ terraform apply
 Terraform will display a plan showing the changes it intends to make. Review the plan and confirm by typing 'yes' when prompted.
 
 
-7. Migrating local state to backend
+7. **Migrating local state to backend**
 
 After the initial apply of terraform, you can add backend section to migrate Terraforn state to S3 bucket
 ```hcl
