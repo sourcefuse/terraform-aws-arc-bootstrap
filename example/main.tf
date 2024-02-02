@@ -15,13 +15,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-################################################
-## imports
-################################################
-# data "aws_partition" "current" {} // uncomment this when using this module anywhere
-
-# data "aws_caller_identity" "current" {} // uncomment this when using this module anywhere
-
 module "tags" {
   source      = "sourcefuse/arc-tags/aws"
   version     = "1.2.2"
@@ -37,7 +30,7 @@ module "tags" {
 
 module "bootstrap" {
   source                   = "sourcefuse/arc-bootstrap/aws"
-  version                  = "1.0.9"
+  version                  = "1.1.3"
   bucket_name              = var.bucket_name
   dynamodb_name            = var.dynamodb_name
   dynamo_kms_master_key_id = var.dynamo_kms_master_key_id
