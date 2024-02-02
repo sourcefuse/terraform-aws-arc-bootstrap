@@ -20,7 +20,7 @@ jobs:
         with:
           source_file: 'README.md'
           destination_repo: 'sourcefuse/arc-docs'
-          destination_folder: 'docs/arc-iac-docs/modules/terraform-aws-ref-arch-bootstrap'
+          destination_folder: 'docs/arc-iac-docs/modules/terraform-aws-arch-bootstrap'
           user_email: 'github-actions@github.com'
           user_name: ${{ github.actor }}
           commit_message: ${{ github.event.head_commit.message }}
@@ -33,7 +33,7 @@ jobs:
           source-directory: 'images'
           destination-github-username: 'sourcefuse'
           destination-repository-name: 'arc-docs'
-          target-directory: 'docs/arc-iac-docs/modules/terraform-aws-ref-arch-bootstrap/images'
+          target-directory: 'docs/arc-iac-docs/modules/terraform-aws-arch-bootstrap/images'
           user-email: 'github-actions@github.com'
           user-name: ${{ github.actor }}
           target-branch: main
@@ -46,7 +46,7 @@ jobs:
         with:
           source_file: 'docs/module-usage-guide/README.md'
           destination_repo: 'sourcefuse/arc-docs'
-          destination_folder: 'docs/arc-iac-docs/modules/terraform-aws-ref-arch-bootstrap/docs/module-usage-guide'
+          destination_folder: 'docs/arc-iac-docs/modules/terraform-aws-arch-bootstrap/docs/module-usage-guide'
           user_email: 'github-actions@github.com'
           user_name: ${{ github.actor }}
           commit_message: ${{ github.event.head_commit.message }}
