@@ -30,10 +30,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           API_TOKEN_GITHUB: ${{ secrets.ARC_DOCS_API_TOKEN_GITHUB }}
         with:
-          source-directory: 'static'
+          source-directory: 'images'
           destination-github-username: 'sourcefuse'
           destination-repository-name: 'arc-docs'
-          target-directory: 'docs/arc-iac-docs/modules/terraform-aws-ref-arch-bootstrap/static'
+          target-directory: 'docs/arc-iac-docs/modules/terraform-aws-ref-arch-bootstrap/images'
           user-email: 'github-actions@github.com'
           user-name: ${{ github.actor }}
           target-branch: main
