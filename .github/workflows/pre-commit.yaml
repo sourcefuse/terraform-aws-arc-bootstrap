@@ -1,0 +1,56 @@
+---
+name: "Run Pre Commit Checks"
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - '**'
+      - '!main'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ## run pre-commit
+  pre-commit:
+    name: Run pre-commit checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ARC_JOB_TOKEN }}
+
+      - uses: actions/setup-python@v3
+
+      - name: Install terraform-docs
+        run: |
+          cd /tmp
+          curl -sSLo ./terraform-docs.tar.gz \
+            https://terraform-docs.io/dl/v0.16.0/terraform-docs-v0.16.0-$(uname)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          rm terraform-docs.tar.gz
+          chmod +x terraform-docs
+          mv terraform-docs /usr/local/bin/terraform-docs
+
+      - name: Install tflint
+        run: |
+          cd /tmp
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.0
+        continue-on-error: true  # we want to push the changes pre-commit makes
+
+      - name: Push pre-commit changes to branch
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Push pre-commit changes
