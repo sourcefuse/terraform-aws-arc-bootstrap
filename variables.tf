@@ -175,7 +175,7 @@ variable "tags" {
   type        = map(string)
 
   default = {
-    Module           = "terraform-module-aws-bootstrap"
+    Module           = "terraform-aws-arc-bootstrap"
     TerraformManaged = "true"
   }
 }
