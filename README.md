@@ -210,7 +210,7 @@ No modules.
 
 ### Versioning  
 
-while Contributing or doing git commit please specify the breaking change in your commit message whether its major,minor or patch
+While Contributing or doing git commit please specify the breaking change in your commit message whether its major,minor or patch
 
 For Example
 
