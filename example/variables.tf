@@ -1,20 +1,32 @@
 ################################################################
 ## shared
 ################################################################
-variable "bucket_name" {
-  description = "Name of the bucket."
+variable "region" {
+  description = "Region the resources will live in."
   type        = string
-}
-
-variable "dynamodb_name" {
-  description = "Name of the Dynamo DB lock table."
-  type        = string
+  default     = "us-east-1"
 }
 
 variable "environment" {
   description = "Name of the Dynamo DB lock table."
   type        = string
   default     = "dev"
+}
+
+################################################################
+## s3
+################################################################
+variable "bucket_name" {
+  description = "Name of the bucket."
+  type        = string
+}
+
+################################################################
+## dynamodb
+################################################################
+variable "dynamodb_name" {
+  description = "Name of the Dynamo DB lock table."
+  type        = string
 }
 
 variable "dynamo_kms_master_key_id" {

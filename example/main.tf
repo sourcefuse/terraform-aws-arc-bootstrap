@@ -2,17 +2,18 @@
 ## defaults
 ################################################
 terraform {
-  required_version = "~> 1.4"
+  required_version = ">= 1.4"
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = ">= 4.0"
     }
   }
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
 module "tags" {
@@ -22,22 +23,15 @@ module "tags" {
   project     = "arc"
 
   extra_tags = {
-    Repo         = "github.com/sourcefuse/terraform-module-aws-bootstrap"
-    MonoRepo     = "True"
-    MonoRepoPath = "terraform/bootstrap"
+    Repo = "github.com/sourcefuse/terraform-aws-arc-bootstrap"
   }
 }
 
 module "bootstrap" {
-  source                   = "sourcefuse/arc-bootstrap/aws"
-  version                  = "1.1.3"
+  source                   = "../"
   bucket_name              = var.bucket_name
   dynamodb_name            = var.dynamodb_name
   dynamo_kms_master_key_id = var.dynamo_kms_master_key_id
 
-  tags = merge(module.tags.tags, tomap({
-    Name         = var.bucket_name
-    DynamoDBName = var.dynamodb_name
-  }))
-
+  tags = module.tags.tags
 }
