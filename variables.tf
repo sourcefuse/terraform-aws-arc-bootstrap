@@ -28,11 +28,11 @@ variable "dynamo_kms_master_key_id" {
 ## s3
 ################################################
 ## bucket
-variable "abort_incomplete_multipart_upload_days" {
-  description = "Specifies the number of days after initiating a multipart upload when the multipart upload must be completed."
-  type        = number
-  default     = 14
-}
+# variable "abort_incomplete_multipart_upload_days" {
+#   description = "Specifies the number of days after initiating a multipart upload when the multipart upload must be completed."
+#   type        = number
+#   default     = 14
+# }
 
 variable "bucket_key_enabled" {
   description = "Whether or not to use Amazon S3 Bucket Keys for SSE-KMS."
@@ -75,16 +75,16 @@ variable "mfa_delete" {
   default     = false
 }
 
-variable "expiration" {
-  description = "Specifies a period in the object's expire."
-  type        = list(any)
+# variable "expiration" {
+#   description = "Specifies a period in the object's expire."
+#   type        = list(any)
 
-  default = [
-    {
-      expired_object_delete_marker = true
-    }
-  ]
-}
+#   default = [
+#     {
+#       expired_object_delete_marker = true
+#     }
+#   ]
+# }
 
 variable "inventory_bucket_format" {
   description = "The format for the inventory file. Default is ORC. Options are ORC or CSV."
@@ -112,23 +112,23 @@ variable "logging_bucket_target_prefix" {
 }
 
 
-variable "noncurrent_version_expiration" {
-  description = "Number of days until non-current version of object expires"
-  type        = number
-  default     = 365
-}
+# variable "noncurrent_version_expiration" {
+#   description = "Number of days until non-current version of object expires"
+#   type        = number
+#   default     = 365
+# }
 
-variable "noncurrent_version_transitions" {
-  description = "Non-current version transition blocks"
-  type        = list(any)
+# variable "noncurrent_version_transitions" {
+#   description = "Non-current version transition blocks"
+#   type        = list(any)
 
-  default = [
-    {
-      days          = 30
-      storage_class = "STANDARD_IA"
-    }
-  ]
-}
+#   default = [
+#     {
+#       days          = 30
+#       storage_class = "STANDARD_IA"
+#     }
+#   ]
+# }
 
 variable "sse_algorithm" {
   description = "The server-side encryption algorithm to use. Valid values are AES256 and aws:kms"
@@ -136,11 +136,11 @@ variable "sse_algorithm" {
   default     = "AES256"
 }
 
-variable "transitions" {
-  description = "Current version transition blocks"
-  type        = list(any)
-  default     = []
-}
+# variable "transitions" {
+#   description = "Current version transition blocks"
+#   type        = list(any)
+#   default     = []
+# }
 
 ## analytics configuration
 variable "enable_analytics" {
@@ -178,4 +178,75 @@ variable "tags" {
     Module           = "terraform-aws-arc-bootstrap"
     TerraformManaged = "true"
   }
+}
+
+variable "lifecycle_rules" {
+  description = "List of lifecycle rules for the S3 bucket"
+  type        = list(object({
+    id      = string
+    status  = string
+    filter  = optional(object({
+      prefix = optional(string, null)
+      tags   = optional(map(string), {})
+    }), {})
+
+    transitions = optional(list(object({
+      days          = number
+      storage_class = string
+    })), [
+      {
+        days          = 30
+        storage_class = "STANDARD_IA"
+      },
+      {
+        days          = 90
+        storage_class = "GLACIER"
+      }
+    ])
+
+    expiration = optional(object({
+      days                         = optional(number, 365)
+      expired_object_delete_marker = optional(bool, true)
+    }), {})
+
+    noncurrent_version_transitions = optional(list(object({
+      noncurrent_days = number
+      storage_class   = string
+    })), [
+      {
+        noncurrent_days = 30
+        storage_class   = "STANDARD_IA"
+      },
+      {
+        noncurrent_days = 90
+        storage_class   = "GLACIER"
+      }
+    ])
+
+    noncurrent_version_expiration = optional(object({
+      noncurrent_days = number
+    }), {
+      noncurrent_days = 365
+    })
+  }))
+  default = [{
+    id      = "default-rule"
+    status  = "Enabled"
+    filter  = {}
+    transitions = [
+      { days = 30, storage_class = "STANDARD_IA" },
+      { days = 90, storage_class = "GLACIER" }
+    ]
+    expiration = {
+      days                         = 365
+      expired_object_delete_marker = true
+    }
+    noncurrent_version_transitions = [
+      { noncurrent_days = 30, storage_class = "STANDARD_IA" },
+      { noncurrent_days = 90, storage_class = "GLACIER" }
+    ]
+    noncurrent_version_expiration = {
+      noncurrent_days = 365
+    }
+  }]
 }
