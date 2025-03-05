@@ -28,11 +28,11 @@ variable "dynamo_kms_master_key_id" {
 ## s3
 ################################################
 ## bucket
-variable "abort_incomplete_multipart_upload_days" {
-  description = "Specifies the number of days after initiating a multipart upload when the multipart upload must be completed."
-  type        = number
-  default     = 14
-}
+# variable "abort_incomplete_multipart_upload_days" {
+#   description = "Specifies the number of days after initiating a multipart upload when the multipart upload must be completed."
+#   type        = number
+#   default     = 14
+# }
 
 variable "bucket_key_enabled" {
   description = "Whether or not to use Amazon S3 Bucket Keys for SSE-KMS."
@@ -75,16 +75,16 @@ variable "mfa_delete" {
   default     = false
 }
 
-variable "expiration" {
-  description = "Specifies a period in the object's expire."
-  type        = list(any)
+# variable "expiration" {
+#   description = "Specifies a period in the object's expire."
+#   type        = list(any)
 
-  default = [
-    {
-      expired_object_delete_marker = true
-    }
-  ]
-}
+#   default = [
+#     {
+#       expired_object_delete_marker = true
+#     }
+#   ]
+# }
 
 variable "inventory_bucket_format" {
   description = "The format for the inventory file. Default is ORC. Options are ORC or CSV."
@@ -112,23 +112,23 @@ variable "logging_bucket_target_prefix" {
 }
 
 
-variable "noncurrent_version_expiration" {
-  description = "Number of days until non-current version of object expires"
-  type        = number
-  default     = 365
-}
+# variable "noncurrent_version_expiration" {
+#   description = "Number of days until non-current version of object expires"
+#   type        = number
+#   default     = 365
+# }
 
-variable "noncurrent_version_transitions" {
-  description = "Non-current version transition blocks"
-  type        = list(any)
+# variable "noncurrent_version_transitions" {
+#   description = "Non-current version transition blocks"
+#   type        = list(any)
 
-  default = [
-    {
-      days          = 30
-      storage_class = "STANDARD_IA"
-    }
-  ]
-}
+#   default = [
+#     {
+#       days          = 30
+#       storage_class = "STANDARD_IA"
+#     }
+#   ]
+# }
 
 variable "sse_algorithm" {
   description = "The server-side encryption algorithm to use. Valid values are AES256 and aws:kms"
@@ -136,11 +136,11 @@ variable "sse_algorithm" {
   default     = "AES256"
 }
 
-variable "transitions" {
-  description = "Current version transition blocks"
-  type        = list(any)
-  default     = []
-}
+# variable "transitions" {
+#   description = "Current version transition blocks"
+#   type        = list(any)
+#   default     = []
+# }
 
 ## analytics configuration
 variable "enable_analytics" {
