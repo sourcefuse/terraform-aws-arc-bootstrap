@@ -81,12 +81,16 @@ data "aws_iam_policy_document" "policy" {
 ################################################
 resource "aws_s3_bucket" "private" {
   bucket        = var.bucket_name
-  policy        = data.aws_iam_policy_document.policy.json
   force_destroy = var.enable_bucket_force_destroy
 
   tags = merge(var.tags, tomap({
     Name = var.bucket_name,
   }))
+}
+
+resource "aws_s3_bucket_policy" "private" {
+  bucket = aws_s3_bucket.private.id
+  policy = data.aws_iam_policy_document.policy.json
 }
 
 resource "aws_s3_bucket_versioning" "this" {
@@ -166,79 +170,64 @@ resource "aws_s3_bucket_inventory" "inventory" {
   ]
 }
 
-
 resource "aws_s3_bucket_lifecycle_configuration" "this" {
-  bucket = aws_s3_bucket.private.id
+  bucket =  aws_s3_bucket.private.id
 
-  rule {
-    id     = "rule-1"
-    status = "Enabled"
+  dynamic "rule" {
+    for_each = var.lifecycle_rules
+    content {
+      id      = rule.value.id
+      status  = rule.value.status
 
-    abort_incomplete_multipart_upload {
-      days_after_initiation = var.abort_incomplete_multipart_upload_days
-    }
+      dynamic "filter" {
+        for_each = (rule.value.filter != null && (lookup(rule.value.filter, "prefix", null) != null || length(lookup(rule.value.filter, "tags", {})) > 0)) ? [rule.value.filter] : []
+        content {
+          prefix = lookup(filter.value, "prefix", null)
 
-    dynamic "expiration" {
-      for_each = var.expiration
-
-      content {
-        date = lookup(expiration.value, "date", null)
-        days = lookup(expiration.value, "days", 0)
-
-        expired_object_delete_marker = lookup(expiration.value, "expired_object_delete_marker", false)
+          dynamic "tag" {
+            for_each = lookup(filter.value, "tags", {})
+            content {
+              key   = tag.key
+              value = tag.value
+            }
+          }
+        }
       }
-    }
 
-    dynamic "transition" {
-      for_each = var.transitions
-
-      content {
-        days          = transition.value.days
-        storage_class = transition.value.storage_class
+      dynamic "transition" {
+        for_each = lookup(rule.value, "transitions", [])
+        content {
+          days          = lookup(transition.value, "days", null)
+          storage_class = transition.value.storage_class
+        }
       }
-    }
 
-    dynamic "noncurrent_version_transition" {
-      for_each = var.noncurrent_version_transitions
-
-      content {
-        noncurrent_days = noncurrent_version_transition.value.days
-        storage_class   = noncurrent_version_transition.value.storage_class
+      dynamic "expiration" {
+        for_each = rule.value.expiration != null ? [rule.value.expiration] : []
+        content {
+          days                         = lookup(expiration.value, "days", null)
+          expired_object_delete_marker = lookup(expiration.value, "expired_object_delete_marker", null)
+        }
       }
-    }
 
-    noncurrent_version_expiration {
-      noncurrent_days = var.noncurrent_version_expiration
-    }
-  }
+      dynamic "noncurrent_version_transition" {
+        for_each = lookup(rule.value, "noncurrent_version_transitions", [])
+        content {
+          noncurrent_days = noncurrent_version_transition.value.noncurrent_days
+          storage_class   = noncurrent_version_transition.value.storage_class
+        }
+      }
 
-  rule {
-    id     = "rule-2"
-    status = "Enabled"
-
-    filter {
-      prefix = "_AWSBucketInventory/"
-    }
-
-    expiration {
-      days = 14
-    }
-  }
-
-  rule {
-    id     = "rule-3"
-    status = "Enabled"
-
-
-    filter {
-      prefix = "_AWSBucketAnalytics/"
-    }
-
-    expiration {
-      days = 30
+      dynamic "noncurrent_version_expiration" {
+        for_each = rule.value.noncurrent_version_expiration != null ? [rule.value.noncurrent_version_expiration] : []
+        content {
+          noncurrent_days = noncurrent_version_expiration.value.noncurrent_days
+        }
+      }
     }
   }
 }
+
 
 
 ################################################
