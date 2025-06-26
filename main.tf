@@ -81,12 +81,16 @@ data "aws_iam_policy_document" "policy" {
 ################################################
 resource "aws_s3_bucket" "private" {
   bucket        = var.bucket_name
-  policy        = data.aws_iam_policy_document.policy.json
   force_destroy = var.enable_bucket_force_destroy
 
   tags = merge(var.tags, tomap({
     Name = var.bucket_name,
   }))
+}
+
+resource "aws_s3_bucket_policy" "this" {
+  bucket = aws_s3_bucket.private.id
+  policy = data.aws_iam_policy_document.policy.json
 }
 
 resource "aws_s3_bucket_versioning" "this" {
