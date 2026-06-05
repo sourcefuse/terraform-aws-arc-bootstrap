@@ -8,9 +8,7 @@
 
 > **Category:** Infrastructure / State Management
 
-
 > **Source:** [https://github.com/sourcefuse/terraform-aws-arc-bootstrap](https://github.com/sourcefuse/terraform-aws-arc-bootstrap)
-![image search api](images/terraform-state.png)<br><br><br>
 
 [![Latest Release](https://img.shields.io/github/release/sourcefuse/terraform-aws-arc-bootstrap.svg?style=for-the-badge)](https://github.com/sourcefuse/terraform-aws-arc-bootstrap/releases/latest)
 [![Last Updated](https://img.shields.io/github/last-commit/sourcefuse/terraform-aws-arc-bootstrap.svg?style=for-the-badge)](https://github.com/sourcefuse/terraform-aws-arc-bootstrap/commits)
@@ -22,6 +20,8 @@
 ## Overview
 
 Creates an S3 bucket and DynamoDB table for Terraform remote state storage with encryption, versioning, and access controls.
+
+![image search api](images/terraform-state.png)<br><br><br>
 
 ## What It Does
 
